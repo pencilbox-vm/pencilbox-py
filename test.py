@@ -15,7 +15,7 @@ ast = op.scope('fib',
       )
     )
   )(
-    op.print('python fib pencilbox', op.apply(op.get('fib'), 30))
+    op.print('fib 30 of pencilbox', op.apply(op.get('fib'), 30))
   )
 
 ast2 = op.scope('f',
@@ -29,11 +29,12 @@ ast2 = op.scope('f',
     )
   )
 )(
-  op.print('python eq: ', op.eq(9, op.apply(op.get('f'), 3, 6)))
+  op.print('eq: ', op.eq(9, op.apply(op.get('f'), 3, 6)))
 )
 
 compiler = Compiler()
 compiler.compile(ast, ast2)
+print('fib')
 print(compiler.textstack_bytes + compiler.bytecodes)
 
 
@@ -324,4 +325,5 @@ compiler_web.compile(
   )
 )
 
+print('canvas plotting')
 print(compiler_web.textstack_bytes + compiler_web.bytecodes)

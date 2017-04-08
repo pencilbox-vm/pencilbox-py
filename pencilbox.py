@@ -152,11 +152,11 @@ class Compiler():
 
 
 
-    elif type(node) == int:
+    elif type(node) == int or type(node) == float:
       num_type = None
       struct_type = None
 
-      if node % 1 == 0:
+      if type(node) == int:
         # is int
 
         if node >= 0:
