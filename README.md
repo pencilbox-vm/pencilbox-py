@@ -24,5 +24,6 @@ ast = op.scope(
 
 compiler = Compiler()
 compiler.compile(ast)
-compiler.output() # We get list of bytecodes here
+bytecodes = compiler.output() # We get list of bytecodes here
 ```
+Once the bytecodes is generated, it can be passed to pencilbox runtime in browser to run the program. 
