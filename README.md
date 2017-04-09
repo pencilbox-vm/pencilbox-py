@@ -1,15 +1,34 @@
 # pencilbox-py
-pencilbox compiler in Python
+**PencilBox** compiler in Python
 
 ## Environment
 Python3
 
 ## How to use
+
+### Example: basic plotting
 ```python
 from dsl import op
 from compiler import Compiler
 
-ast = op.scope(
+compiler = Compiler()
+compiler.compile(
+  op.beginPath(),
+  op.rect(0,0,50,50),
+  op.arc(25, 25, 25, 0, 1.5 * 3.14159265359),
+  op.closePath(),
+  op.strokeStyle('red'),
+  op.stroke()
+)
+bytecodes = compiler.output() # We get list of bytecodes here
+```
+
+### Example: fibonacci
+```python
+from dsl import op
+from compiler import Compiler
+
+code = op.scope(
       'fib',
       op.func('n')(
         op.ifElse(
@@ -26,7 +45,10 @@ ast = op.scope(
     )
 
 compiler = Compiler()
-compiler.compile(ast)
+compiler.compile(code)
 bytecodes = compiler.output() # We get list of bytecodes here
 ```
-Once the bytecodes is generated, it can be passed to pencilbox runtime in browser to run the program. 
+
+### Using bytecodes
+Once the bytecodes is generated, it should be passed to **PencilBox** runtime in browser to run the program.
+Please checkout the [**PencilBox** runtime `How to use`](https://github.com/pencilbox-vm/runtime#how-to-use) 
