@@ -1,5 +1,6 @@
 # pencilbox-py
-**PencilBox** compiler in Python
+* **PencilBox** is a Virtual Machine for HTML canvas plotting.
+* This is a **PencilBox** bytecodes compiler written in Python.
 
 ## Environment
 Python3
