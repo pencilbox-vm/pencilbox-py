@@ -1,6 +1,9 @@
 # pencilbox-py
 pencilbox compiler in Python
 
+## Environment
+Python3
+
 ## How to use
 ```python
 from dsl import op
