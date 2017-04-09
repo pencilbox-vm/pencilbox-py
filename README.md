@@ -14,7 +14,7 @@ from compiler import Compiler
 compiler = Compiler()
 compiler.compile(
   op.beginPath(),
-  op.rect(0,0,50,50),
+  op.rect(0, 0, 50, 50),
   op.arc(25, 25, 25, 0, 1.5 * 3.14159265359),
   op.closePath(),
   op.strokeStyle('red'),
