@@ -1,11 +1,11 @@
-from definition import op
-from pencilbox import Compiler
+from dsl import op
+from compiler import Compiler
 
 from random import random
 
 ast = op.scope('fib',
     op.func('n')(
-      op._if(
+      op.ifElse(
         op.lt(op.get('n'), 2),
         op.get('n'),
         op.add(
@@ -35,7 +35,7 @@ ast2 = op.scope('f',
 compiler = Compiler()
 compiler.compile(ast, ast2)
 print('fib')
-print(compiler.textstack_bytes + compiler.bytecodes)
+print(compiler.output())
 
 
 colors = []
@@ -282,9 +282,9 @@ compiler_web.compile(
     op.fillText(op.eq(4, op.div(28, 7)), op.pop(op.get('l')), 0),
     op.fillText(op.eq(3, op.mod(7, 4)), op.pop(op.get('l')), 0),
     op.fillText(op.eq(3, op.mod(7, 4)), op.pop(op.get('l')), 0),
-    op.fillText(op.eq('branch 1 false', op._if(op.eq(8,9), 'branch 1 true', 'branch 1 false')), op.pop(op.get('l')), 0),
-    op.fillText(op.eq('branch 2 true', op._if(op.eq(8,8), 'branch 2 true', 'branch 2 false')), op.pop(op.get('l')), 0),
-    op.fillText(op.eq('branch 3 false', op._if(op.eq(8,7), 'branch 3 true', 'branch 3 false')), op.pop(op.get('l')), 0)
+    op.fillText(op.eq('branch 1 false', op.ifElse(op.eq(8,9), 'branch 1 true', 'branch 1 false')), op.pop(op.get('l')), 0),
+    op.fillText(op.eq('branch 2 true', op.ifElse(op.eq(8,8), 'branch 2 true', 'branch 2 false')), op.pop(op.get('l')), 0),
+    op.fillText(op.eq('branch 3 false', op.ifElse(op.eq(8,7), 'branch 3 true', 'branch 3 false')), op.pop(op.get('l')), 0)
   )
 )
 
@@ -326,4 +326,4 @@ compiler_web.compile(
 )
 
 print('canvas plotting')
-print(compiler_web.textstack_bytes + compiler_web.bytecodes)
+print(compiler_web.output())

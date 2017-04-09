@@ -2,6 +2,7 @@
 
 EOT = [3, 0]
 
+# ========= opdata define ===========
 opdata_list = [
   "sot",
   "iot",
@@ -21,6 +22,16 @@ for item in opdata_list:
   _Opdata[item] = index
   index += 1
 
+class Opdata():
+  def __getattr__(self, item):
+    return _Opdata[item]
+
+  def __iter__(self):
+    for item in _Opdata:
+      yield _Opdata[item]
+
+
+# ============= opimplicit define ===========
 opimplicit_list = [
   "textstack",
   "sweep",
@@ -35,6 +46,17 @@ for item in opimplicit_list:
   _Opimplicit[item] = index
   index += 1
 
+class Opimplicit():
+  def __getattr__(self, item):
+    return _Opimplicit[item]
+
+  def __iter__(self):
+    for item in _Opimplicit:
+      yield _Opimplicit[item]
+
+
+
+# ============== opexplicit define =============
 opexplicit_list = [
   "scope",
   "get",
@@ -48,7 +70,7 @@ opexplicit_list = [
   "mod",
   "envGet",
   "envSet",
-  "if",
+  "ifElse",
   "eq",
   "gt",
   "ge",
@@ -120,58 +142,23 @@ opexplicit_list = [
   "transform",
   "translate"
 ]
-
-
 _Opexplicit = {}
 index = 31
 for item in opexplicit_list:
   _Opexplicit[item] = index
   index += 1
 
-
-class Opdata():
-  def __getattr__(self, item):
-    item = item.replace("_", "")
-    return _Opdata[item]
-
-  def __iter__(self):
-    for item in _Opdata:
-      yield _Opdata[item]
-
-
-class Opimplicit():
-  def __getattr__(self, item):
-    item = item.replace("_", "")
-    return _Opimplicit[item]
-
-  def __iter__(self):
-    for item in _Opimplicit:
-      yield _Opimplicit[item]
-
-
 class Opexplicit():
   def __getattr__(self, item):
-    item = item.replace("_", "")
     return _Opexplicit[item]
 
   def __iter__(self):
     for item in _Opexplicit:
       yield _Opexplicit[item]
 
-class Op():
-  def __getattr__(self, item):
-    item = item.replace("_", "")
-    if item == "func" or item == "scope":
-      return lambda *x : lambda *y : [_Opexplicit[item], x] + list(y)
-    else:
-      return lambda *x : [_Opexplicit[item]] + list(x)
-
-
 opdata = Opdata()
 opimplicit = Opimplicit()
 opexplicit = Opexplicit()
-
-op = Op()
 
 OpOnlyTwoParams = set([
   opexplicit.eq,

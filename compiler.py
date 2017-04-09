@@ -1,7 +1,7 @@
 #encoding=utf-8
 
 import struct
-from definition import EOT, opdata, opimplicit, opexplicit, op, OpOnlyTwoParams
+from definition import EOT, opdata, opimplicit, opexplicit, OpOnlyTwoParams
 
 class Compiler():
   def __init__(self):
@@ -97,7 +97,7 @@ class Compiler():
         self.bytecodes[bytecodes_len - 2] = offset_bytes[2]
         self.bytecodes[bytecodes_len - 1] = offset_bytes[3]
 
-      elif code == opexplicit._if:
+      elif code == opexplicit.ifElse:
 
         # push condition on stack
         self.walk(node[1], varstack, varstack_callindex)
@@ -227,3 +227,5 @@ class Compiler():
       self.textstack_bytes[3] = offset_bytes[2]
       self.textstack_bytes[4] = offset_bytes[3]
 
+  def output(self):
+    return self.textstack_bytes + self.bytecodes
